@@ -9,17 +9,22 @@
 
 ## 快速开始
 
-### 安装
+### 新安装用户
 
 ```bash
 cd /workspace/projects/workspace
 bash skills/git-memory/scripts/install.sh
+sh /workspace/projects/scripts/restart.sh
 ```
 
-### 重启 OpenClaw
+### 已有记忆文件？
 
 ```bash
-sh /workspace/projects/scripts/restart.sh
+# 自动检测并迁移
+bash skills/git-memory/scripts/install.sh
+
+# 或手动迁移
+python3 skills/git-memory/lib/git_memory/migrator.py
 ```
 
 ### 使用
