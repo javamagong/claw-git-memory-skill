@@ -2,34 +2,71 @@
 
 > 🧠 AI 记忆自动版本管理 - 让 AI 不再失忆
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://clawhub.com/skills/git-memory)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://clawhub.com/skills/git-memory)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
 
 ## 快速开始
 
-### 新安装用户
+### 一句话安装
 
 ```bash
-cd /workspace/projects/workspace
-bash skills/git-memory/scripts/install.sh
-sh /workspace/projects/scripts/restart.sh
+bash /workspace/projects/workspace/skills/git-memory/install.sh
 ```
 
-### 已有记忆文件？
+### 重启 OpenClaw
 
 ```bash
-# 自动检测并迁移
-bash skills/git-memory/scripts/install.sh
-
-# 或手动迁移
-python3 skills/git-memory/lib/git_memory/migrator.py
+sh /workspace/projects/scripts/restart.sh
 ```
 
 ### 使用
 
 **无需任何操作！** 记忆会自动版本化保存。
+
+- ✅ 会话开始 → 自动同步记忆
+- ✅ 对话中 → 自动保存记忆
+- ✅ 会话结束 → 自动提交 + 合并
+- ✅ 远程备份 → 自动推送（如果配置）
+
+### 查询历史（可选）
+
+```bash
+# Git 命令
+git log --oneline -10
+git grep "关键词"
+
+# OpenClaw Tool
+search_memory(query="关键词")
+```
+
+---
+
+## 用户体验
+
+### 安装（40 秒）
+
+1. 一句话安装（30 秒）
+2. 重启 OpenClaw（10 秒）
+3. ✅ 完成
+
+### 日常使用（无感知）
+
+- ❌ **不需要**手动 git add
+- ❌ **不需要**手动 git commit
+- ❌ **不需要**手动管理分支
+- ✅ **自动**保存记忆
+- ✅ **自动**版本化
+- ✅ **自动**合并冲突
+
+### 适用场景
+
+| 用户类型 | 需要操作 | 时间 |
+|---------|---------|------|
+| 新安装 | 安装 + 重启 | 40 秒 |
+| 已有记忆 | 安装 + 重启 + 确认迁移 | 1 分钟 |
+| 日常使用 | 无（完全自动） | 0 秒 |
 
 ---
 
