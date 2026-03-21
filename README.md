@@ -1,19 +1,21 @@
 # Git Memory Skill
 
-> 🧠 AI 记忆自动版本管理 - 让 AI 不再失忆
+> 🧠 AI 记忆自动版本管理 - **一句话安装，零配置使用**
 
-[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://clawhub.com/skills/git-memory)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://clawhub.com/skills/git-memory)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
 
-## 快速开始
+## 🚀 极简安装（推荐）
 
 ### 一句话安装
 
 ```bash
-bash /workspace/projects/workspace/skills/git-memory/install.sh
+bash skills/git-memory/quick-install.sh
 ```
+
+**就这么简单！** 无需任何配置，立即可用。
 
 ### 重启 OpenClaw
 
@@ -23,22 +25,46 @@ sh /workspace/projects/scripts/restart.sh
 
 ### 使用
 
-**无需任何操作！** 记忆会自动版本化保存。
+**无需任何操作！** 记忆会自动版本化保存：
 
-- ✅ 会话开始 → 自动同步记忆
+- ✅ 会话开始 → 自动创建分支
 - ✅ 对话中 → 自动保存记忆
-- ✅ 会话结束 → 自动提交 + 合并
-- ✅ 远程备份 → 自动推送（如果配置）
+- ✅ 会话结束 → 自动提交
+- ✅ 历史版本 → 随时查看/恢复
 
-### 查询历史（可选）
+---
+
+## 📦 可选：配置远程同步
+
+**仅当需要多设备同步时才配置**
 
 ```bash
-# Git 命令
-git log --oneline -10
-git grep "关键词"
+python3 skills/git-memory/config-wizard.py
+```
 
-# OpenClaw Tool
-search_memory(query="关键词")
+按提示输入：
+1. 设备类型（local/cloud）
+2. 设备名称
+3. GitHub 仓库地址
+
+**不配置也能用！** 本地版本控制完全正常。
+
+---
+
+## 📊 查看状态
+
+```bash
+# Git 提交历史
+git log --oneline -10
+
+# 同步状态（如果配置了远程）
+python3 -c "
+import sys
+sys.path.insert(0, 'skills/git-memory/lib')
+from git_memory import GitMemorySkill
+skill = GitMemorySkill('.')
+print(skill.get_sync_status())
+"
 ```
 
 ---
