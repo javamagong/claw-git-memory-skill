@@ -285,6 +285,46 @@ tail -f logs/git-memory.log
 
 ---
 
+## 📋 Roadmap
+
+### ✅ v2.0.0 (Released 2026-03-22)
+
+- Auto-trigger mechanism
+- Subsystem memory (trading/conversation/skills/tools)
+- Schema-Driven Merge
+- Conflict detection and resolution
+- Remote sync and multi-device support
+- Bilingual documentation (EN/zh)
+
+### 🚧 Planned
+
+| Feature | Priority | Status |
+|---------|----------|--------|
+| OpenClaw Hook Integration | High | ⚠️ In Progress |
+| CLI Commands (`git-memory xxx`) | Medium | ❌ Not Started |
+| Vector Search (Semantic) | Low | ❌ Not Started |
+| SQLite Index (Optional) | Low | ❌ Not Started |
+| Auto GC (Periodic Cleanup) | Low | ❌ Not Started |
+
+### 🔧 Known Limitations
+
+1. **OpenClaw Integration** - Requires manual hook setup in OpenClaw
+2. **Conflict UI** - Code logic exists, but no dedicated UI yet
+3. **Standalone Mode** - Auto-trigger only works within OpenClaw context
+
+---
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new features
+4. Submit a pull request
+
+---
+
 ## References
 
 - [TaG (Trading as Git)](https://www.traderalice.com/blog/trading-as-git-intro)
