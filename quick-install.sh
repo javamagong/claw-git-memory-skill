@@ -98,6 +98,38 @@ logging:
 EOF
 
 echo "✅ 配置文件已创建：config/git-memory.yaml"
+
+# ========== 5. 注册 OpenClaw Hooks ==========
+echo "🔌 注册 OpenClaw Hooks..."
+
+# 检测 OpenClaw 安装位置
+OPENCLAW_HOOKS_DIR=""
+
+# 检查常见位置
+if [ -d "$HOME/.openclaw" ]; then
+    OPENCLAW_HOOKS_DIR="$HOME/.openclaw/hooks"
+elif [ -d "/usr/local/share/openclaw" ]; then
+    OPENCLAW_HOOKS_DIR="/usr/local/share/openclaw/hooks"
+elif [ -d "/opt/openclaw" ]; then
+    OPENCLAW_HOOKS_DIR="/opt/openclaw/hooks"
+fi
+
+if [ -n "$OPENCLAW_HOOKS_DIR" ] && [ -d ".openclaw/hooks" ]; then
+    echo "📁 检测到 OpenClaw 安装：$OPENCLAW_HOOKS_DIR"
+    
+    # 创建 hooks 目录（如果不存在）
+    mkdir -p "$OPENCLAW_HOOKS_DIR"
+    
+    # 复制 hooks
+    cp -r .openclaw/hooks/* "$OPENCLAW_HOOKS_DIR/" 2>/dev/null || true
+    
+    echo "✅ OpenClaw Hooks 已注册"
+    echo "   重启 OpenClaw 后生效：openclaw gateway restart"
+else
+    echo "ℹ️  未检测到 OpenClaw 安装，跳过 Hooks 注册"
+    echo "   手动安装：cp -r .openclaw/hooks/* /path/to/openclaw/.openclaw/hooks/"
+fi
+echo ""
 echo ""
 
 # ========== 5. 配置 OpenClaw Hooks ==========
