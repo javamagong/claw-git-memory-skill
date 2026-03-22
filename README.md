@@ -55,7 +55,7 @@ Follow the prompts:
 
 ## ⚡ Auto-Trigger Mechanism
 
-Git Memory automatically activates in these scenarios:
+Git Memory works automatically within OpenClaw:
 
 | Trigger | Action |
 |---------|--------|
@@ -65,20 +65,26 @@ Git Memory automatically activates in these scenarios:
 | **Session End** | Merge to main + push (if remote configured) |
 | **Conflict Detected** | Explicit prompt with merge options |
 
-### Manual Commands
+### Python API
 
-```bash
-# Save memory manually
-git-memory save "Remember to review trading rules before market open"
+For programmatic access:
 
-# View memory history
-git-memory log
+```python
+from git_memory import GitMemorySkill
+
+skill = GitMemorySkill('.')
+
+# Save memory
+skill.save_memory("Remember to review trading rules", reason="Trading setup")
 
 # Search memory
-git-memory search "trading"
+results = skill.search_memory(query="trading", limit=5)
 
-# Initialize (first-time only)
-git-memory init
+# View history
+history = skill.get_memory_history(target="MEMORY.md", limit=10)
+
+# Get status
+status = skill.get_memory_status()
 ```
 
 ---
@@ -88,6 +94,9 @@ git-memory init
 ```bash
 # Git commit history
 git log --oneline -10
+
+# Search memory with Git
+git grep "trading" -- memory/ subsystems/
 
 # Sync status (if remote configured)
 python3 -c "
