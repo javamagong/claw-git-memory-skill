@@ -295,12 +295,13 @@ tail -f logs/git-memory.log
 - Conflict detection and resolution
 - Remote sync and multi-device support
 - Bilingual documentation (EN/zh)
+- **OpenClaw Hook Integration** ✅
+- **Integration Guide** ✅
 
 ### 🚧 Planned
 
 | Feature | Priority | Status |
 |---------|----------|--------|
-| OpenClaw Hook Integration | High | ⚠️ In Progress |
 | CLI Commands (`git-memory xxx`) | Medium | ❌ Not Started |
 | Vector Search (Semantic) | Low | ❌ Not Started |
 | SQLite Index (Optional) | Low | ❌ Not Started |
