@@ -63,11 +63,11 @@ bash scripts/install.sh
 
 ## 作者
 
-张明春 & A 小二
+JavaMaGong & A 小二
 
 ## 版本
 
-1.0.0
+2.0.0
 
 ## 许可证
 

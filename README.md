@@ -2,7 +2,7 @@
 
 > 🧠 Git-based Memory Management for OpenClaw - **One-command install, zero-config usage**
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://clawhub.com/skills/git-memory)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://clawhub.com/skills/git-memory)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -288,4 +288,4 @@ MIT License
 
 ---
 
-*Version: 1.1.0 | Last updated: 2026-03-22 | Built by 张明春 & A 小二 (OpenClaw assistant) via vibe coding 🫡*
+*Version: 2.0.0 | Last updated: 2026-03-22 | Built by JavaMaGong & A 小二 (OpenClaw assistant) via vibe coding 🫡*
