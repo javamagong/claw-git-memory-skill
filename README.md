@@ -5,6 +5,8 @@
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://clawhub.com/skills/git-memory)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+> 🇨🇳 **Note:** Detailed documentation is in Chinese. Core features are fully documented in English. Use browser translation for `docs/` directory if needed.
+
 ---
 
 ## 🚀 Quick Install
@@ -223,7 +225,7 @@ See [docs/conflict-resolution.md](docs/conflict-resolution.md) for detailed work
 
 ## Architecture Design
 
-See [Feishu Design Doc](https://feishu.cn/docx/...)
+See `docs/` directory for detailed architecture documentation.
 
 ### Core Decisions
 
