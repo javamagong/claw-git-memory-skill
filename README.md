@@ -51,6 +51,36 @@ Follow the prompts:
 
 ---
 
+## ⚡ Auto-Trigger Mechanism
+
+Git Memory automatically activates in these scenarios:
+
+| Trigger | Action |
+|---------|--------|
+| **Session Start** | Pull latest memory from main branch |
+| **User says "remember this"** | Save to current session branch |
+| **Trading/Operation Complete** | Auto-commit transaction record |
+| **Session End** | Merge to main + push (if remote configured) |
+| **Conflict Detected** | Explicit prompt with merge options |
+
+### Manual Commands
+
+```bash
+# Save memory manually
+git-memory save "Remember to review trading rules before market open"
+
+# View memory history
+git-memory log
+
+# Search memory
+git-memory search "trading"
+
+# Initialize (first-time only)
+git-memory init
+```
+
+---
+
 ## 📊 Check Status
 
 ```bash
@@ -104,44 +134,40 @@ print(skill.get_sync_status())
 - ✅ **Remote Backup** - Optional sync to GitHub/GitLab
 - ✅ **Smart Merge** - Schema-driven JSON merge
 - ✅ **Precise Search** - Multi-dimensional filtering
+- ✅ **Conflict Detection** - Explicit prompts for multi-session conflicts
 
 ---
 
-## Optional Commands
-
-```bash
-# View memory history
-git log --oneline
-
-# Search memory
-git grep "keyword"
-
-# View subsystem history
-git log -- subsystems/trading/
-
-# Restore to historical version
-git checkout <commit-hash> -- MEMORY.md
-```
-
----
-
-## Directory Structure
+## 📁 Directory Structure
 
 ```
 /workspace/
 ├── MEMORY.md                    # Global memory
 ├── memory/                      # Daily memory
+│   ├── 2026-03-22.md           # Today's log
+│   └── 2026-03-21.md           # Yesterday's log
 ├── subsystems/                  # Subsystem memory
-│   ├── trading/                 # Stock trading
-│   ├── conversation/            # Conversation
+│   ├── trading/                 # Stock trading (cost, holdings, transactions)
+│   ├── conversation/            # Conversation context
 │   ├── skills/                  # Skills learning
 │   └── tools/                   # Tool configuration
 └── .git/                        # Git repository
 ```
 
+### Subsystems
+
+| Subsystem | Purpose | Example |
+|-----------|---------|---------|
+| `trading/` | Stock transactions, holdings, P/L | Cost basis, buy/sell records |
+| `conversation/` | Long-running conversation context | Project preferences, user info |
+| `skills/` | Learned skills and patterns | Tool usage, workflows |
+| `tools/` | Environment-specific config | SSH hosts, camera names, TTS voices |
+
+See [docs/subsystems.md](docs/subsystems.md) for details.
+
 ---
 
-## Configuration
+## 🔧 Configuration
 
 ### Custom Merge Strategy
 
@@ -167,6 +193,31 @@ _default:
 git remote add origin https://github.com/yourname/memory.git
 git push -u origin main
 ```
+
+### TOOLS.md Configuration
+
+```yaml
+git-memory:
+  repo: /workspace/projects/workspace
+  remote: git@github.com:yourname/repo.git  # Optional
+  auto-commit: true
+  auto-push: false  # Optional, default: no force push
+```
+
+---
+
+## ⚠️ Conflict Resolution
+
+When multiple sessions modify memory simultaneously:
+
+1. **Detection** - Git Memory detects divergent branches
+2. **Schema-Aware Merge** - Attempts automatic merge using `.mergerc.yaml`
+3. **Explicit Prompt** - If auto-merge fails, shows conflict with options:
+   - Accept incoming changes
+   - Keep local changes
+   - Manual merge
+
+See [docs/conflict-resolution.md](docs/conflict-resolution.md) for detailed workflow.
 
 ---
 
@@ -202,7 +253,7 @@ See [Feishu Design Doc](https://feishu.cn/docx/...)
 
 ### Q: Will multiple sessions conflict?
 
-**A:** No! Each session has independent branch, auto-merged.
+**A:** No! Each session has independent branch, auto-merged with conflict detection.
 
 ---
 
@@ -237,4 +288,4 @@ MIT License
 
 ---
 
-*Version: 1.1.0 | Last updated: 2026-03-22*
+*Version: 1.1.0 | Last updated: 2026-03-22 | Built by 张明春 & A 小二 (OpenClaw assistant) via vibe coding 🫡*
