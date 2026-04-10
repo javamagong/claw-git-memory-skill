@@ -1,240 +1,188 @@
 # Git Memory Skill
 
-> 🧠 Git-based Memory Management for OpenClaw - **One-command install, zero-config usage**
+🧠 基于 Git 的 AI 记忆管理 - **支持 OpenClaw 和 Hermes**
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://clawhub.com/skills/git-memory)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+![](https://camo.githubusercontent.com/dd1b51eac051b316a3173585bc64d36e19fa2d4e90a4581734cc292c175130f1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f76657273696f6e2d322e312e302d626c75652e737667)
+![](https://camo.githubusercontent.com/8bb50fd2278f18fc326bf71f6e88ca8f884f72f179d3e555e20ed30157190d0d/68747470733a2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d677265656e2e737667)
 
----
+## 🚀 快速安装
 
-## 🚀 Quick Install
-
-### One-Command Install
+### OpenClaw 用户
 
 ```bash
-bash skills/git-memory/quick-install.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/javamagong/claw-git-memory-skill/main/quick-install.sh)
 ```
 
-**That's it!** No configuration needed, ready to use immediately.
-
-### Restart OpenClaw
+### Hermes Agent 用户
 
 ```bash
-sh /workspace/projects/scripts/restart.sh
+# 克隆仓库
+git clone git@github.com:javamagong/claw-git-memory-skill.git
+cd claw-git-memory-skill
+
+# 运行安装脚本
+bash hermes/install.sh ~/my-claw-memory
+
+# 重启 Hermes
+hermes gateway restart
 ```
 
-### Usage
+## 📋 功能特性
 
-**No manual operations needed!** Memory is automatically versioned:
+| 功能 | OpenClaw | Hermes |
+|------|----------|--------|
+| 自动版本控制 | ✅ Hooks | ✅ Provider |
+| 会话隔离 | ✅ | ✅ |
+| 自动提交 | ✅ | ✅ |
+| 自动推送 | ✅ | ✅ |
+| 远程同步 | ✅ | ✅ |
+| 工具接口 | ❌ | ✅ gitmemory_* |
 
-- ✅ Session start → Auto-create branch
-- ✅ During conversation → Auto-save memory
-- ✅ Session end → Auto-commit
-- ✅ History → View/restore anytime
-
----
-
-## 📦 Optional: Configure Remote Sync
-
-**Only needed for multi-device sync**
-
-```bash
-python3 skills/git-memory/config-wizard.py
-```
-
-Follow the prompts:
-1. Device type (local/cloud)
-2. Device name
-3. GitHub repository URL
-
-**Works without config!** Local version control works perfectly.
-
----
-
-## 📊 Check Status
-
-```bash
-# Git commit history
-git log --oneline -10
-
-# Sync status (if remote configured)
-python3 -c "
-import sys
-sys.path.insert(0, 'skills/git-memory/lib')
-from git_memory import GitMemorySkill
-skill = GitMemorySkill('.')
-print(skill.get_sync_status())
-"
-```
-
----
-
-## User Experience
-
-### Installation (40 seconds)
-
-1. One-command install (30 sec)
-2. Restart OpenClaw (10 sec)
-3. ✅ Done
-
-### Daily Usage (Invisible)
-
-- ❌ **No** manual git add
-- ❌ **No** manual git commit
-- ❌ **No** manual branch management
-- ✅ **Auto** save memory
-- ✅ **Auto** versioning
-- ✅ **Auto** merge conflicts
-
-### Use Cases
-
-| User Type | Operations Needed | Time |
-|-----------|------------------|------|
-| New install | Install + restart | 40 sec |
-| Existing memory | Install + restart + confirm migration | 1 min |
-| Daily use | None (fully automatic) | 0 sec |
-
----
-
-## Core Features
-
-- ✅ **Auto Version Control** - All memory changes auto-committed to Git
-- ✅ **Session Isolation** - Each session has independent branch
-- ✅ **History Tracking** - View/restore to any historical version
-- ✅ **Remote Backup** - Optional sync to GitHub/GitLab
-- ✅ **Smart Merge** - Schema-driven JSON merge
-- ✅ **Precise Search** - Multi-dimensional filtering
-
----
-
-## Optional Commands
-
-```bash
-# View memory history
-git log --oneline
-
-# Search memory
-git grep "keyword"
-
-# View subsystem history
-git log -- subsystems/trading/
-
-# Restore to historical version
-git checkout <commit-hash> -- MEMORY.md
-```
-
----
-
-## Directory Structure
+## 🏗️ 项目结构
 
 ```
-/workspace/
-├── MEMORY.md                    # Global memory
-├── memory/                      # Daily memory
-├── subsystems/                  # Subsystem memory
-│   ├── trading/                 # Stock trading
-│   ├── conversation/            # Conversation
-│   ├── skills/                  # Skills learning
-│   └── tools/                   # Tool configuration
-└── .git/                        # Git repository
+claw-git-memory-skill/
+├── .openclaw/hooks/     # OpenClaw 钩子 (TypeScript)
+│   ├── git-memory-session-start.ts
+│   └── git-memory-session-end.ts
+├── hermes/              # Hermes 提供器 (Python)
+│   ├── __init__.py
+│   ├── provider.py
+│   └── install.sh
+└── docs/                # 文档
 ```
 
----
+## 📖 使用说明
 
-## Configuration
+### OpenClaw
 
-### Custom Merge Strategy
+全自动，无需手动操作：
+- 会话开始 → 自动拉取最新记忆
+- 对话过程 → 自动保存记忆
+- 会话结束 → 自动提交 + 推送
 
-Create `.mergerc.yaml` in subsystem directory:
+### Hermes
+
+**可用工具：**
+
+| 工具 | 说明 |
+|------|------|
+| `gitmemory_status` | 检查同步状态 |
+| `gitmemory_commit` | 提交记忆变更 |
+| `gitmemory_push` | 推送到远程 |
+| `gitmemory_pull` | 拉取最新记忆 |
+
+**使用示例：**
+```
+你: 检查记忆同步状态
+Hermes: *调用 gitmemory_status*
+当前状态：
+- 仓库: ~/my-claw-memory
+- 分支: master
+- 待提交: 3 个文件
+- 最后提交: session: abc123 at 2026-04-10 12:00
+```
+
+## 🔧 配置说明
+
+### OpenClaw (TOOLS.md)
 
 ```yaml
-version: 1
-fields:
-  transactions:
-    merge_strategy: union
-    id_fields: ['id']
-  
-  holdings:
-    merge_strategy: deep_merge
-
-_default:
-  merge_strategy: local
+git-memory:
+  repo: /workspace/projects/workspace
+  remote: git@github.com:yourname/repo.git
+  auto-commit: true
+  auto-push: false
 ```
 
-### Configure Remote Backup (Optional)
+### Hermes (~/.hermes/config.yaml)
 
+```yaml
+memory:
+  provider: gitmemory
+  repo: ~/my-claw-memory
+  auto_commit: true
+  auto_push: true
+```
+
+或设置环境变量：
 ```bash
-git remote add origin https://github.com/yourname/memory.git
-git push -u origin main
+export GIT_MEMORY_REPO=~/my-claw-memory
 ```
 
----
+## 📁 记忆仓库结构
 
-## Architecture Design
-
-See [Feishu Design Doc](https://feishu.cn/docx/...)
-
-### Core Decisions
-
-1. **Schema-Driven Merge** - Configuration-driven JSON merge
-2. **Worktree Lifecycle** - Auto-cleanup of stale worktrees
-3. **Pure Git Search** - Git-based search, no SQLite
-
----
-
-## FAQ
-
-### Q: Do I need to know Git?
-
-**A:** No! All Git operations are automatic.
-
-### Q: Will I lose data?
-
-**A:** No! Git version control, all history is recoverable.
-
-### Q: Do I need to configure remote repository?
-
-**A:** Optional! Local usage works perfectly fine.
-
-### Q: Will it affect performance?
-
-**A:** Minimal impact! Git operations run asynchronously in background.
-
-### Q: Will multiple sessions conflict?
-
-**A:** No! Each session has independent branch, auto-merged.
-
----
-
-## Development
-
-### Run Tests
-
-```bash
-cd skills/git-memory
-pytest tests/
+```
+my-claw-memory/
+├── MEMORY.md          # 全局记忆
+├── USER.md            # 用户档案
+├── SOUL.md            # 人格设定
+├── TOOLS.md           # 环境配置
+├── SECRET.example.md  # 敏感信息模板
+├── memory/            # 日常记忆
+│   ├── 2026-04-10.md
+│   └── ...
+├── subsystems/        # 子系统记忆
+│   ├── trading/
+│   └── conversation/
+└── .git/              # Git 仓库
 ```
 
-### View Logs
+## 🔄 多设备同步
 
-```bash
-tail -f logs/git-memory.log
+```
+┌─────────────────┐
+│  Git 远程仓库    │  (GitHub/Gitee)
+│                 │
+└────────┬────────┘
+         │ git push/pull
+    ┌────┴────┬──────────┐
+    ↓         ↓          ↓
+┌───────┐ ┌────────┐ ┌──────────┐
+│ 扣子   │ │ 腾讯云  │ │ OpenClaw │
+│ 云电脑 │ │ Hermes │ │ (原环境)  │
+└───────┘ └────────┘ └──────────┘
 ```
 
----
+所有设备共享同一个记忆仓库，保持记忆同步。
 
-## References
+## 📋 更新日志
 
-- [TaG (Trading as Git)](https://www.traderalice.com/blog/trading-as-git-intro)
-- [OpenClaw Documentation](https://docs.openclaw.ai)
-- [Git Documentation](https://git-scm.com/docs)
+### v2.1.0 (2026-04-10)
+- ✅ 添加 Hermes Agent 支持
+- ✅ Python Provider 及 gitmemory_* 工具
+- ✅ 统一记忆仓库结构
+- ✅ 多设备同步支持
 
----
+### v2.0.0 (2026-03-22)
+- 自动触发机制
+- 子系统记忆
+- Schema-Driven Merge
+- 冲突检测
+- OpenClaw Hook 集成
 
-## License
+详见 [CHANGELOG.md](CHANGELOG.md)
+
+## 📚 文档
+
+- [English README](README.md)
+- [中文文档](README_zh.md)
+- [子系统指南](docs/subsystems.md)
+- [冲突解决](docs/conflict-resolution.md)
+- [多设备同步](docs/git-memory/GIT_MEMORY_MULTI_DEVICE_SYNC.md)
+
+## 🤝 参与贡献
+
+欢迎贡献代码：
+1. Fork 本仓库
+2. 创建特性分支
+3. 添加测试
+4. 提交 Pull Request
+
+## 📄 许可证
 
 MIT License
 
 ---
 
-*Version: 1.1.0 | Last updated: 2026-03-22*
+*版本: 2.1.0 | 由 JavaMaGong & A小二 构建*
