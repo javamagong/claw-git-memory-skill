@@ -1,343 +1,190 @@
 # Git Memory Skill
 
-> 🧠 Git-based Memory Management for OpenClaw - **One-command install, zero-config usage**
+🧠 Git-based Memory Management for AI Agents - **Supports OpenClaw and Hermes**
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://clawhub.com/skills/git-memory)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
-> 🇨🇳 **Note:** Detailed documentation is in Chinese. Core features are fully documented in English. Use browser translation for `docs/` directory if needed.
-
----
+![](https://camo.githubusercontent.com/dd1b51eac051b316a3173585bc64d36e19fa2d4e90a4581734cc292c175130f1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f76657273696f6e2d322e312e302d626c75652e737667)
+![](https://camo.githubusercontent.com/8bb50fd2278f18fc326bf71f6e88ca8f884f72f179d3e555e20ed30157190d0d/68747470733a2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d677265656e2e737667)
 
 ## 🚀 Quick Install
 
-### One-Command Install
+### For OpenClaw
 
 ```bash
-bash skills/git-memory/quick-install.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/javamagong/claw-git-memory-skill/main/quick-install.sh)
 ```
 
-**That's it!** No configuration needed, ready to use immediately.
-
-### Restart OpenClaw
+### For Hermes Agent
 
 ```bash
-sh /workspace/projects/scripts/restart.sh
+# Clone the repository
+git clone git@github.com:javamagong/claw-git-memory-skill.git
+cd claw-git-memory-skill
+
+# Run installer
+bash hermes/install.sh ~/my-claw-memory
+
+# Restart Hermes
+hermes gateway restart
 ```
 
-### Usage
+## 📋 Features
 
-**No manual operations needed!** Memory is automatically versioned:
+| Feature | OpenClaw | Hermes |
+|---------|----------|--------|
+| Auto version control | ✅ Hooks | ✅ Provider |
+| Session isolation | ✅ | ✅ |
+| Auto commit | ✅ | ✅ |
+| Auto push | ✅ | ✅ |
+| Remote sync | ✅ | ✅ |
+| Tool access | ❌ | ✅ gitmemory_* |
 
-- ✅ Session start → Auto-create branch
-- ✅ During conversation → Auto-save memory
-- ✅ Session end → Auto-commit
-- ✅ History → View/restore anytime
-
----
-
-## 📦 Optional: Configure Remote Sync
-
-**Only needed for multi-device sync**
-
-```bash
-python3 skills/git-memory/config-wizard.py
-```
-
-Follow the prompts:
-1. Device type (local/cloud)
-2. Device name
-3. GitHub repository URL
-
-**Works without config!** Local version control works perfectly.
-
----
-
-## ⚡ Auto-Trigger Mechanism
-
-Git Memory works automatically within OpenClaw:
-
-| Trigger | Action |
-|---------|--------|
-| **Session Start** | Pull latest memory from main branch |
-| **User says "remember this"** | Save to current session branch |
-| **Trading/Operation Complete** | Auto-commit transaction record |
-| **Session End** | Merge to main + push (if remote configured) |
-| **Conflict Detected** | Explicit prompt with merge options |
-
-### Python API
-
-For programmatic access:
-
-```python
-from git_memory import GitMemorySkill
-
-skill = GitMemorySkill('.')
-
-# Save memory
-skill.save_memory("Remember to review trading rules", reason="Trading setup")
-
-# Search memory
-results = skill.search_memory(query="trading", limit=5)
-
-# View history
-history = skill.get_memory_history(target="MEMORY.md", limit=10)
-
-# Get status
-status = skill.get_memory_status()
-```
-
----
-
-## 📊 Check Status
-
-```bash
-# Git commit history
-git log --oneline -10
-
-# Search memory with Git
-git grep "trading" -- memory/ subsystems/
-
-# Sync status (if remote configured)
-python3 -c "
-import sys
-sys.path.insert(0, 'skills/git-memory/lib')
-from git_memory import GitMemorySkill
-skill = GitMemorySkill('.')
-print(skill.get_sync_status())
-"
-```
-
----
-
-## User Experience
-
-### Installation (40 seconds)
-
-1. One-command install (30 sec)
-2. Restart OpenClaw (10 sec)
-3. ✅ Done
-
-### Daily Usage (Invisible)
-
-- ❌ **No** manual git add
-- ❌ **No** manual git commit
-- ❌ **No** manual branch management
-- ✅ **Auto** save memory
-- ✅ **Auto** versioning
-- ✅ **Auto** merge conflicts
-
-### Use Cases
-
-| User Type | Operations Needed | Time |
-|-----------|------------------|------|
-| New install | Install + restart | 40 sec |
-| Existing memory | Install + restart + confirm migration | 1 min |
-| Daily use | None (fully automatic) | 0 sec |
-
----
-
-## Core Features
-
-- ✅ **Auto Version Control** - All memory changes auto-committed to Git
-- ✅ **Session Isolation** - Each session has independent branch
-- ✅ **History Tracking** - View/restore to any historical version
-- ✅ **Remote Backup** - Optional sync to GitHub/GitLab
-- ✅ **Smart Merge** - Schema-driven JSON merge
-- ✅ **Precise Search** - Multi-dimensional filtering
-- ✅ **Conflict Detection** - Explicit prompts for multi-session conflicts
-
----
-
-## 📁 Directory Structure
+## 🏗️ Architecture
 
 ```
-/workspace/
-├── MEMORY.md                    # Global memory
-├── memory/                      # Daily memory
-│   ├── 2026-03-22.md           # Today's log
-│   └── 2026-03-21.md           # Yesterday's log
-├── subsystems/                  # Subsystem memory
-│   ├── trading/                 # Stock trading (cost, holdings, transactions)
-│   ├── conversation/            # Conversation context
-│   ├── skills/                  # Skills learning
-│   └── tools/                   # Tool configuration
-└── .git/                        # Git repository
+claw-git-memory-skill/
+├── .openclaw/hooks/     # OpenClaw hooks (TypeScript)
+│   ├── git-memory-session-start.ts
+│   └── git-memory-session-end.ts
+├── hermes/              # Hermes provider (Python)
+│   ├── __init__.py
+│   ├── provider.py
+│   └── install.sh
+└── docs/                # Documentation
 ```
 
-### Subsystems
+## 📖 Usage
 
-| Subsystem | Purpose | Example |
-|-----------|---------|---------|
-| `trading/` | Stock transactions, holdings, P/L | Cost basis, buy/sell records |
-| `conversation/` | Long-running conversation context | Project preferences, user info |
-| `skills/` | Learned skills and patterns | Tool usage, workflows |
-| `tools/` | Environment-specific config | SSH hosts, camera names, TTS voices |
+### OpenClaw
 
-See [docs/subsystems.md](docs/subsystems.md) for details.
+Automatic - no manual operations needed:
+- Session start → Auto-pull latest memory
+- During conversation → Auto-save memory
+- Session end → Auto-commit + push
 
----
+### Hermes
+
+**Tools available:**
+
+| Tool | Description |
+|------|-------------|
+| `gitmemory_status` | Check git memory status |
+| `gitmemory_commit` | Commit pending changes |
+| `gitmemory_push` | Push to remote |
+| `gitmemory_pull` | Pull from remote |
+
+**Example in Hermes chat:**
+```
+You: Check memory sync status
+Hermes: *uses gitmemory_status*
+Current status:
+- Repo: ~/my-claw-memory
+- Branch: master
+- Changes: 3 pending
+- Last commit: session: abc123 at 2026-04-10 12:00
+```
 
 ## 🔧 Configuration
 
-### Custom Merge Strategy
+### OpenClaw
 
-Create `.mergerc.yaml` in subsystem directory:
-
-```yaml
-version: 1
-fields:
-  transactions:
-    merge_strategy: union
-    id_fields: ['id']
-  
-  holdings:
-    merge_strategy: deep_merge
-
-_default:
-  merge_strategy: local
-```
-
-### Configure Remote Backup (Optional)
-
-```bash
-git remote add origin https://github.com/yourname/memory.git
-git push -u origin main
-```
-
-### TOOLS.md Configuration
-
+Add to `TOOLS.md`:
 ```yaml
 git-memory:
   repo: /workspace/projects/workspace
-  remote: git@github.com:yourname/repo.git  # Optional
+  remote: git@github.com:yourname/repo.git
   auto-commit: true
-  auto-push: false  # Optional, default: no force push
+  auto-push: false
 ```
 
----
+### Hermes
 
-## ⚠️ Conflict Resolution
+Add to `~/.hermes/config.yaml`:
+```yaml
+memory:
+  provider: gitmemory
+  repo: ~/my-claw-memory
+  auto_commit: true
+  auto_push: true
+```
 
-When multiple sessions modify memory simultaneously:
-
-1. **Detection** - Git Memory detects divergent branches
-2. **Schema-Aware Merge** - Attempts automatic merge using `.mergerc.yaml`
-3. **Explicit Prompt** - If auto-merge fails, shows conflict with options:
-   - Accept incoming changes
-   - Keep local changes
-   - Manual merge
-
-See [docs/conflict-resolution.md](docs/conflict-resolution.md) for detailed workflow.
-
----
-
-## Architecture Design
-
-See `docs/` directory for detailed architecture documentation.
-
-### Core Decisions
-
-1. **Schema-Driven Merge** - Configuration-driven JSON merge
-2. **Worktree Lifecycle** - Auto-cleanup of stale worktrees
-3. **Pure Git Search** - Git-based search, no SQLite
-
----
-
-## FAQ
-
-### Q: Do I need to know Git?
-
-**A:** No! All Git operations are automatic.
-
-### Q: Will I lose data?
-
-**A:** No! Git version control, all history is recoverable.
-
-### Q: Do I need to configure remote repository?
-
-**A:** Optional! Local usage works perfectly fine.
-
-### Q: Will it affect performance?
-
-**A:** Minimal impact! Git operations run asynchronously in background.
-
-### Q: Will multiple sessions conflict?
-
-**A:** No! Each session has independent branch, auto-merged with conflict detection.
-
----
-
-## Development
-
-### Run Tests
-
+Or set environment variable:
 ```bash
-cd skills/git-memory
-pytest tests/
+export GIT_MEMORY_REPO=~/my-claw-memory
 ```
 
-### View Logs
+## 📁 Memory Repository Structure
 
-```bash
-tail -f logs/git-memory.log
+```
+my-claw-memory/
+├── MEMORY.md          # Global memory
+├── USER.md            # User profile
+├── SOUL.md            # Agent personality
+├── TOOLS.md           # Environment config
+├── SECRET.example.md  # Secrets template
+├── memory/            # Daily memory
+│   ├── 2026-04-10.md
+│   └── ...
+├── subsystems/        # Subsystem memory
+│   ├── trading/
+│   └── conversation/
+└── .git/              # Git repository
 ```
 
----
+## 🔄 Multi-Device Sync
 
-## 📋 Roadmap
+```
+┌─────────────────┐
+│  Git Remote      │  (GitHub/Gitee)
+│  Repository      │
+└────────┬────────┘
+         │ git push/pull
+    ┌────┴────┬──────────┐
+    ↓         ↓          ↓
+┌───────┐ ┌────────┐ ┌──────────┐
+│ 扣子   │ │ 腾讯云  │ │ OpenClaw │
+│ 云电脑 │ │ Hermes │ │ (原环境)  │
+└───────┘ └────────┘ └──────────┘
+```
 
-### ✅ v2.0.0 (Released 2026-03-22)
+All devices share the same memory repository, keeping memories in sync.
 
+## 📋 Changelog
+
+### v2.1.0 (2026-04-10)
+- ✅ Added Hermes Agent support
+- ✅ Python provider with gitmemory_* tools
+- ✅ Unified memory repository structure
+- ✅ Multi-device sync support
+
+### v2.0.0 (2026-03-22)
 - Auto-trigger mechanism
-- Subsystem memory (trading/conversation/skills/tools)
+- Subsystem memory
 - Schema-Driven Merge
-- Conflict detection and resolution
-- Remote sync and multi-device support
-- Bilingual documentation (EN/zh)
-- **OpenClaw Hook Integration** ✅
-- **Integration Guide** ✅
+- Conflict detection
+- OpenClaw Hook Integration
 
-### 🚧 Planned
+See [CHANGELOG.md](CHANGELOG.md) for full history.
 
-| Feature | Priority | Status |
-|---------|----------|--------|
-| CLI Commands (`git-memory xxx`) | Medium | ❌ Not Started |
-| Vector Search (Semantic) | Low | ❌ Not Started |
-| SQLite Index (Optional) | Low | ❌ Not Started |
-| Auto GC (Periodic Cleanup) | Low | ❌ Not Started |
+## 📚 Documentation
 
-### 🔧 Known Limitations
+- [English README](README.md)
+- [中文文档](README_zh.md)
+- [Subsystem Guide](docs/subsystems.md)
+- [Conflict Resolution](docs/conflict-resolution.md)
+- [Multi-Device Sync](docs/git-memory/GIT_MEMORY_MULTI_DEVICE_SYNC.md)
 
-1. **OpenClaw Integration** - Requires manual hook setup in OpenClaw
-2. **Conflict UI** - Code logic exists, but no dedicated UI yet
-3. **Standalone Mode** - Auto-trigger only works within OpenClaw context
+## 🤝 Contributing
 
----
-
-## Contributing
-
-Contributions are welcome! Please:
-
+Contributions welcome! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Add tests for new features
 4. Submit a pull request
 
----
-
-## References
-
-- [TaG (Trading as Git)](https://www.traderalice.com/blog/trading-as-git-intro)
-- [OpenClaw Documentation](https://docs.openclaw.ai)
-- [Git Documentation](https://git-scm.com/docs)
-
----
-
-## License
+## 📄 License
 
 MIT License
 
 ---
 
-*Version: 2.0.0 | Last updated: 2026-03-22 | Built by JavaMaGong & A 小二 (OpenClaw assistant) via vibe coding 🫡*
+*Version: 2.1.0 | Built by JavaMaGong & A小二 (OpenClaw/Hermes assistant)*
