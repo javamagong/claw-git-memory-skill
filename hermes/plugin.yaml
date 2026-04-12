@@ -1,0 +1,6 @@
+name: gitmemory
+version: "2.1.0"
+description: Git-backed memory with automatic version control and remote sync
+author: JavaMaGong & A小二
+license: MIT
+repo: https://github.com/javamagong/claw-git-memory-skill
